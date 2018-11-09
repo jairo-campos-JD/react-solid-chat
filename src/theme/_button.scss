@@ -1,0 +1,18 @@
+.btn {
+  display: inline-block;
+  min-width: 120px;
+  height: 40px;
+  margin: 10px 0;
+  border-radius: 4px;
+  background-color: $blue;
+  font-size: 14px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1.25px;
+  line-height: 16px;
+  cursor: pointer;
+
+  &.btn-solid {
+    background-color: $purple;
+  }
+}

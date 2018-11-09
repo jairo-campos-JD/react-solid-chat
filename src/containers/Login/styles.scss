@@ -1,0 +1,46 @@
+.app-login {
+  .profile-icon {
+    font-size: 70px;
+  }
+
+  .app-login-container {
+    text-align: center;
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 25px;
+
+    h1 {
+      text-transform: uppercase;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+    }
+
+    .register-container {
+      margin-top: 40px;
+    }
+
+    .link {
+      margin-top: 40px;
+      display: inline-block;
+    }
+
+    .input-solid-webid {
+      margin: 10px 0;
+    }
+  }
+
+  @include md {
+    .profile-icon {
+      font-size: 80px;
+    }
+
+    .app-login-container {
+      h1 {
+        font-size: 38px;
+      }
+    }
+  } 
+}

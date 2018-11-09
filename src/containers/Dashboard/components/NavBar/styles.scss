@@ -1,0 +1,20 @@
+.app-nav-bar {
+  background-color: $purple;
+  color: white;
+  padding: 10px 20px;
+
+  .logo {
+    text-transform: uppercase;
+  }
+
+  button {
+    border: none;
+    background-color: transparent;
+  }
+
+  .right {
+    align-items: center;
+    align-content: center;
+    display: flex;
+  }
+}
