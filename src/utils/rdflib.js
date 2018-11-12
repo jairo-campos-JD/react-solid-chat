@@ -1,6 +1,7 @@
 import * as $rdf from 'rdflib';
 import auth from 'solid-auth-client';
 import moment from 'moment';
+import { defaultCipherList } from 'constants';
 
 const FLOW = $rdf.Namespace('http://www.w3.org/2005/01/wf/flow#');
 const VCARD = $rdf.Namespace('http://www.w3.org/2006/vcard/ns#');
@@ -9,6 +10,9 @@ const FOA = $rdf.Namespace('http://xmlns.com/foaf/0.1/');
 const TERMS = $rdf.Namespace('http://purl.org/dc/terms/');
 
 class solidRdflib {
+    rdf;
+    updateManager;
+    count = 0;
     constructor() {
         this.rdf = $rdf;
         this.store = $rdf.graph();
@@ -20,16 +24,15 @@ class solidRdflib {
         const folder = this.rdf.sym(folderName);
 
         await this.fetcher.load(folder);
-
-        // this.updateManager.addDownstreamChangeListener(folder, () => console.log('updated'));
+        // this.updateManager.addDownstreamChangeListener(folder.doc(), () => console.log('updated'));
     }
 
     linkedData = async (statements: Array<Object>, objectType: string = '#Msg') => {
         let subject;
-
+        this.count +=1; 
         statements.map(async st => {
-            subject = this.rdf.sym(st.object.value);
             if (st.object.value.includes(objectType)) {
+                subject = this.rdf.sym(st.object.value);
                 statements.push( ...this.store.match(subject, null, null, subject.doc()));
             }
         });
@@ -72,6 +75,8 @@ class solidRdflib {
         const maker = await this.getMarker(this.session.webId);
         
         await this.updateManager.update([], insertions, () => {});
+
+        // this.updateManager.addDownstreamChangeListener(chatsubject.doc(), (msg) => console.log(msg, 'hello'));
         
         return result = {
             content: message,

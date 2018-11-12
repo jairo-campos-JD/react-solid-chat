@@ -18,13 +18,24 @@ class ChatComponent extends Component {
     this.loadChat();
   }
 
+
   loadChat = async() => {
+    await this.synChat();
+
+    const folder = solidRdflib.rdf.sym(CHAT_URL);
+    solidRdflib.updateManager.addDownstreamChangeListener(folder.doc(), async () => {
+      await this.synChat();
+    });
+
+  }
+
+  synChat = async() => {
     await solidRdflib.listData(CHAT_URL);
     const rdfData = await solidRdflib.findByPredicate('message');
     this.setState({ rdfData });
-
     await this.rdfToChatData();
   }
+  
 
   rdfToChatData = async() => {
     const messages = [];
@@ -41,7 +52,6 @@ class ChatComponent extends Component {
         });
       }
     }));
-
     this.setState({ messages: sortBy(messages, { prop: 'date', desc: false }) });
   }
 
