@@ -70,8 +70,11 @@ class ChatComponent extends Component {
   
   render(){
     return (
-      <div className="app-chat">
-        <div className="messages-container">
+      <div className="app-chat pure-g">
+        <div className="users-container pure-u-6-24">
+          Users list will be here
+        </div>
+        <div className="messages-container pure-u-17-24">
           {
             this.state.messages.map((msg, index) => 
             <div className="message" key={ index }>
