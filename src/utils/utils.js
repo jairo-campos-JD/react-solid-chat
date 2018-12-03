@@ -20,3 +20,8 @@ export const sortBy = (function () {
     };
   
 }());
+
+export const uniqueId = (prefix) => {
+  const code = new Date().getUTCMilliseconds();
+  return `${prefix}${code}`;
+}

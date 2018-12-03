@@ -2,6 +2,7 @@ import * as $rdf from 'rdflib';
 import auth from 'solid-auth-client';
 import moment from 'moment';
 import { defaultCipherList } from 'constants';
+import { Notifications } from './';
 
 const FLOW = $rdf.Namespace('http://www.w3.org/2005/01/wf/flow#');
 const VCARD = $rdf.Namespace('http://www.w3.org/2006/vcard/ns#');
@@ -24,6 +25,7 @@ class solidRdflib {
         const folder = this.rdf.sym(folderName);
 
         await this.fetcher.load(folder);
+        await this.fetcher.load(this.rdf.sym('https://jairo.janeirodigital.exchange/public/inrupt/.acl'));
         // this.updateManager.addDownstreamChangeListener(folder.doc(), () => console.log('updated'));
     }
 
@@ -75,6 +77,10 @@ class solidRdflib {
         const maker = await this.getMarker(this.session.webId);
         
         await this.updateManager.update([], insertions, () => {});
+
+        console.log(this.rdf.sym(this.session.webId));
+        
+        await Notifications.createNotification({ type: 'Chat:Inrupt', actor: this.rdf.sym(this.session.webId), target: chatsubject });
 
         // this.updateManager.addDownstreamChangeListener(chatsubject.doc(), (msg) => console.log(msg, 'hello'));
         

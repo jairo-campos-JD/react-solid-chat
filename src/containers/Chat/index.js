@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { solidRdflib, sortBy } from '../../utils/';
+import { solidRdflib, sortBy, Notifications } from '../../utils/';
 import moment from 'moment';
 import './styles.scss';
 
